@@ -60,7 +60,7 @@ exports.delete = async (req, res) => {
     return res.status(404).send({ msg: "User not found" });
     }
     if (c.userId !== decoded.userId) {
-     return res.status(401).send({ msg: "You are Not Authorised to update." });
+     return res.status(401).send({ msg: "You are Not Authorised to Delete." });
     }
     await CommentModel.findByIdAndDelete({ _id: id });
     res.status(200).send({ msg: "Data Deleted" });

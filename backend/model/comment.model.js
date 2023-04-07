@@ -16,8 +16,7 @@ const commentSchema = mongoose.Schema({
       createdAt: { type: String, default: new Date() },
       score: { type: Number, default: 0 },
       replyingTo: String,
-      default: [],
-      
+      default: [],      
     },
   ],
 });
