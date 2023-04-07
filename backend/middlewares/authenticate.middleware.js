@@ -3,8 +3,10 @@ require("dotenv").config();
 
 const authenticate = (req, res, next) => {
   const token = req.headers.authorization;
+  // console.log(token)
   if (token) {
     const decoded_token = jwt.verify(token, "secret");
+    console.log(decoded_token)
     try {
       if (decoded_token) {
         const userId = decoded_token.userId;

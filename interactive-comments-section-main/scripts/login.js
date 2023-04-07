@@ -2,6 +2,10 @@ let button = document.getElementById("submit");
 
 button.addEventListener("click", handleLogin);
 
+function setCookie(name,value){
+    document.cookie = name + "=" + value + "; path=/";
+}
+
 function handleLogin(e) {
   e.preventDefault();
   let email = document.getElementById("email").value;
@@ -13,7 +17,9 @@ function handleLogin(e) {
   Login(payload)
     .then((res) => {
       localStorage.setItem("token", JSON.stringify(res.token));
-      alert(`Success : ${res.msg}`);
+
+      setCookie("token", res.token);
+      alert(`${res.msg}`);
       window.location.href = "../index.html";
     })
     .catch((err) => {
