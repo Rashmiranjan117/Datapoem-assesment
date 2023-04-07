@@ -12,13 +12,13 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    "origin": "*",
   })
 );
 app.use(cookieParser());
 
 app.use("/auth", authRouter);
-app.use(authenticate);
+// app.use(authenticate);
 app.use("/post", commentRouter);
 
 app.listen(process.env.port, async () => {
