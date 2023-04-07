@@ -11,16 +11,36 @@
     />
     <link rel="stylesheet" href="./css/nav.css" />
     <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/main.css" />
     <title>Comment-App</title>
   </head>
   <body>
     <nav id="nav">
-      <a href="./html/signup.html">Signup</a>
-      <a href="./html/login.html">Login</a>
+      <button id="openModalBtn">Add</button>
       <a href="./index.html">DashBoards</a>
     </nav>
 
     <main>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Update</h2>
+          <form>
+            <input
+              type="text"
+              id="content"
+              placeholder="Enter Updated Content"
+            />
+            <input
+            type="url"
+            id="url"
+            placeholder="Enter Updated url"
+          />
+            <button type="submit" id="add">Update</button>
+          </form>
+          <button id="closeModalBtn">Close</button>
+        </div>
+      </div>
       <div id="container"></div>
     </main>
   </body>
