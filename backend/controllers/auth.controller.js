@@ -1,9 +1,10 @@
 const bcrypt = require("bcrypt");
 const { AuthModel } = require("../model/auth.model");
+const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
   let { email, password } = req.body;
-  let temp = await AuthModel.find({ _id: id });
+  let temp = await AuthModel.find({ email });
   if (temp.length > 0) {
     res.status(401).send({
       msg: "User exists with this email! Use a different ID/ try logging in",
@@ -14,7 +15,7 @@ exports.signup = async (req, res) => {
         if (err) {
           console.loq(err);
         } else {
-          const user = new UserModel({
+          const user = new AuthModel({
             email,
             password: secured_password,
           });
@@ -47,4 +48,15 @@ exports.login = async (req, res) => {
   } else {
     res.status(404).send({ msg: "User Not Found. Register First" });
   }
+};
+
+exports.get = async (req, res) => {
+  let data = await AuthModel.find();
+  res.status(200).send(data);
+};
+
+exports.delete = async (req, res) => {
+  let id = req.params.id;
+  await AuthModel.findByIdAndDelete({ _id: id });
+  res.status(200).send("Deleted");
 };

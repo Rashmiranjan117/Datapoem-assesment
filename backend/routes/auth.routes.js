@@ -8,4 +8,8 @@ authRouter.post("/register", authController.signup);
 
 authRouter.post("/login", authController.login);
 
+authRouter.get("/", authController.get);
+
+authRouter.delete("/:id", authController.delete);
+
 module.exports = { authRouter };
