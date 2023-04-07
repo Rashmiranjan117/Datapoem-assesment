@@ -9,6 +9,8 @@ const authenticate = (req, res, next) => {
       if (decoded_token) {
         const userId = decoded_token.userId;
         req.body.user.id = userId;
+        req.body.user.name = decoded_token.email;
+        console.log(decoded_token);
         next();
       } else {
         res.status(401).send({ msg: "Please Login First" });
