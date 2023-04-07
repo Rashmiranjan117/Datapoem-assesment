@@ -8,16 +8,16 @@ const authenticate = (req, res, next) => {
     try {
       if (decoded_token) {
         const userId = decoded_token.userId;
-        req.body.userId = userId;
+        req.body.user.id = userId;
         next();
       } else {
-        res.send({ msg: "Please Login First" });
+        res.status(401).send({ msg: "Please Login First" });
       }
     } catch (err) {
-      res.send({ msg: "Invalid Token. Please login.", err });
+      res.status(401).send({ msg: "Invalid Token. Please login.", err });
     }
   } else {
-    res.send({ msg: "Invalid token. Please Login." });
+    res.status(401).send({ msg: "Invalid token. Please Login." });
   }
 };
 

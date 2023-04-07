@@ -38,7 +38,7 @@ exports.login = async (req, res) => {
       if (result) {
         const token = jwt.sign(
           { email, password, userId: user[0]._id },
-          "masai"
+          "secret"
         );
         res.status(202).send({ msg: "Logg in Successfull", token });
       } else {
