@@ -13,19 +13,14 @@ const commentSchema = mongoose.Schema({
     {
       id: String,
       content: String,
-      createdAt: { type: String, default: Date.now() },
+      createdAt: { type: String, default: new Date() },
       score: { type: Number, default: 0 },
       replyingTo: String,
-      user: {
-        image: String,
-        id: String,
-        name: String,
-      },
+      default: [],
+      
     },
   ],
 });
-
-commentSchema.default({ replies: [] });
 
 const CommentModel = mongoose.model("comment", commentSchema);
 
