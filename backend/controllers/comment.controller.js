@@ -1,5 +1,5 @@
 const { CommentModel } = require("../model/comment.model");
-
+const jwt = require("jsonwebtoken");
 exports.getAll = async (req, res) => {
   try {
     let data = await CommentModel.find();
@@ -32,8 +32,17 @@ exports.post = async (req, res) => {
 
 exports.patch = async (req, res) => {
   let id = req.params.id;
+  const token = req.headers.authorization;
   try {
     let data = req.body;
+    const decoded = jwt.verify(token, "secret");
+    const c = await CommentModel.findOne({ _id: id });
+    if (!c) {
+     return res.status(404).send({ msg: "User not found" });
+    }
+    if (c.userId !== decoded.userId) {
+     return res.status(401).send({ msg: "You are Not Authorised to update." });
+    }
     await CommentModel.findByIdAndUpdate({ _id: id }, data);
     res.status(201).send({ msg: "Comment Updated" });
   } catch (err) {
@@ -43,7 +52,16 @@ exports.patch = async (req, res) => {
 
 exports.delete = async (req, res) => {
   let id = req.params.id;
+  const token = req.headers.authorization;
   try {
+    const decoded = jwt.verify(token, "secret");
+    const c = await CommentModel.findOne({ _id: id });
+    if (!c) {
+    return res.status(404).send({ msg: "User not found" });
+    }
+    if (c.userId !== decoded.userId) {
+     return res.status(401).send({ msg: "You are Not Authorised to update." });
+    }
     await CommentModel.findByIdAndDelete({ _id: id });
     res.status(200).send({ msg: "Data Deleted" });
   } catch (err) {
